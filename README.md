@@ -87,6 +87,13 @@ firebase init firestore
 ```
 
 ```
+firebase init functions
+? What language would you like to use to write Cloud Functions? TypeScript
+? Do you want to use ESLint to catch probable bugs and enforce style? Yes
+? Do you want to install dependencies with npm now? Yes
+```
+
+```
 yarn add firebase
 touch src/app/lib/firebase-config.js
 ```
