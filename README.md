@@ -61,4 +61,5 @@ mkdir src
 mkdir -p src/app/{pages,assets,lib}
 mkdir -p src/core/{components,assets,lib}
 touch src/{index,App}.tsx
+touch .env
 ```
