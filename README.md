@@ -69,6 +69,13 @@ touch src/{index,App}.tsx
 touch .env
 ```
 
+## To deploy the app
+
+```
+yarn run build
+firebase deploy --only hosting
+```
+
 ## To install firebase to the React app
 
 ```
