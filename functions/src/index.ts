@@ -1,7 +1,9 @@
 import * as functions from 'firebase-functions';
-import { helloWorld as helloWorldApi } from './apis/hello-world';
+import { calculateCompoundInterestApi } from './apis/calculateCompoundInterest';
+import { helloWorldApi } from './apis/helloWorld';
 
 const { onRequest } = functions.region('asia-northeast1').https;
 const helloWorld = onRequest(helloWorldApi)
+const calculateCompoundInterest = onRequest(calculateCompoundInterestApi)
 
-export { helloWorld }
+export { helloWorld, calculateCompoundInterest }
