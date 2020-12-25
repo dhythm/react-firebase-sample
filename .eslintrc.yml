@@ -17,6 +17,8 @@ plugins:
   - import
   - unused-imports
   - sort-export-all
+ignorePatterns:
+  - node_modules
 rules:
   sort-imports: 0
   "import/order":

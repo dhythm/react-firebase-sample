@@ -97,3 +97,11 @@ firebase init functions
 yarn add firebase
 touch src/app/lib/firebase-config.js
 ```
+
+## Create functions
+
+```
+mkdir -p functions/src/apis
+export GOOGLE_APPLICATION_CREDENTIALS=path/to/react-firebase-sample-1225-firebase-adminsdk-xxxxxxxxxxxxxxxx.json
+firebase emulators:start --only functions
+```

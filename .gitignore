@@ -66,6 +66,7 @@ node_modules/
 .env
 
 # custom dirs and files
+react-firebase-sample-1225-firebase-adminsdk-*.json
 dist/
 firebase-config.js
 firebase-config.ts
