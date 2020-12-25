@@ -1,0 +1,42 @@
+
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "ES2018",
+    "module": "commonjs",
+    "jsx": "react",
+    "sourceMap": true,
+    "outDir": "./dist",
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+
+    /* Additional Checks */
+
+    /* Module Resolution Options */
+    "esModuleInterop": true,
+
+    /* Source Map Options */
+    "sourceRoot": "./src",
+
+    /* Experimental Options */
+
+    /* Advanced Options */
+    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */ ,
+    "resolveJsonModule": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@core/components": ["./src/core/components/index.ts"],
+      "@core/components/*": ["./src/core/components/*"],
+      "@core/lib/*": ["./src/core/lib/*"],
+      "@core/assets/*": ["./src/core/assets/*"],
+      "@app/pages/*": ["./src/app/pages/*"],
+      "@app/lib/*": ["./src/app/lib/*"],
+      "@app/assets/*": ["./src/app/assets/*"]
+    }
+  },
+  "include": ["src"]
+}
