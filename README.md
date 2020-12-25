@@ -28,16 +28,19 @@ yarn add react react-dom
 ```
 yarn add -D @babel/core @babel/cli @babel/preset-env @babel/preset-react
 touch .babelrc
+# modify .babelrc
 ```
 
 ```
 yarn add -D webpack webpack-cli webpack-dev-server style-loader css-loader babel-loader url-loader file-loader dotenv-webpack tsconfig-paths-webpack-plugin
 touch webpack.config.js
+# modify webpack.config.js
 ```
 
 ```
 yarn add -D typescript ts-loader typesync
 yarn run tsc --init
+# modify tsconfig.json
 ```
 
 ```
@@ -52,9 +55,11 @@ yarn run eslint --init
 ✔ Would you like to install them now with npm? · No
 yarn add -D eslint-plugin-react@latest @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest
 touch .prettierrc
+# modify .eslintrc.yml and .prettierrc
 ```
 
 ```
+# modify package.json for script
 yarn install
 
 mkdir src
@@ -62,4 +67,10 @@ mkdir -p src/app/{pages,assets,lib}
 mkdir -p src/core/{components,assets,lib}
 touch src/{index,App}.tsx
 touch .env
+```
+
+## To install firebase to the React app
+
+```
+yarn add firebase
 ```
