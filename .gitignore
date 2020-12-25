@@ -65,5 +65,7 @@ node_modules/
 # dotenv environment variables file
 .env
 
-# distribution directory
+# custom dirs and files
 dist/
+firebase-config.js
+firebase-config.ts

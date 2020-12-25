@@ -79,5 +79,14 @@ firebase deploy --only hosting
 ## To install firebase to the React app
 
 ```
+# Create a firestore database in Firebase Console first
+firebase init firestore
+
+? What file should be used for Firestore Rules? firestore.rules
+? What file should be used for Firestore indexes? firestore.indexes.json
+```
+
+```
 yarn add firebase
+touch src/app/lib/firebase-config.js
 ```
