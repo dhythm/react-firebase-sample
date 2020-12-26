@@ -2,7 +2,7 @@ import { db } from '@app/lib/firebase-config';
 import React from 'react';
 import { useAsync } from 'react-use';
 
-export const HomePage: React.FunctionComponent = () => {
+export const UsersPage: React.FunctionComponent = () => {
   const { loading, error, value: snapshot } = useAsync(
     async () => await db.collection('users').get(),
   );

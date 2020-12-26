@@ -65,8 +65,10 @@ yarn install
 mkdir src
 mkdir -p src/app/{pages,assets,lib}
 mkdir -p src/core/{components,assets,lib}
+mkdir src/core/components/{atoms,molecules,organisms}
 touch src/{index,App}.tsx
 touch .env
+touch src/core/components/{.eslintrc.yml,index.ts}
 ```
 
 ## To deploy the app

@@ -1,8 +1,8 @@
-import { HomePage } from '@app/pages/HomePage';
 import React from 'react';
+import { DebtPage } from './app/pages/DebtPage';
 
 const App: React.FunctionComponent = () => {
-  return <HomePage />;
+  return <DebtPage />;
 };
 
 export default App;
