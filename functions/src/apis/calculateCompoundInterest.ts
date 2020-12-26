@@ -6,14 +6,14 @@ export const calculateCompoundInterestApi = async (
   res: Response<any>,
 ) => {
   const { query } = req;
-  const { principal, interest, investmentPeriod } = query;
+  const { principal, interest, investmentPeriod } = query as any;
 
   try {
     if (isNaN(principal) || isNaN(interest) || isNaN(investmentPeriod)) {
-      throw new Error('');
+      throw new Error('[Bad request] Invalid parameters');
     }
     const assets = new Decimal(principal).times(
-      Decimal.pow(Decimal.add(1, interest), investmentPeriod),
+      Decimal.pow(Decimal.add(1, Decimal.div(interest, 100)), investmentPeriod),
     );
     res.send({ assets });
   } catch (e) {

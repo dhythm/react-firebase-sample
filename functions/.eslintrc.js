@@ -19,6 +19,7 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/adjacent-overload-signatures": "error",
+    "@typescript-eslint/consistent-type-assertions": "warn",
     "@typescript-eslint/no-empty-function": "error",
     "@typescript-eslint/no-empty-interface": "warn",
     "@typescript-eslint/no-floating-promises": "error",
