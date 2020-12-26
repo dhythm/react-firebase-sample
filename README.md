@@ -100,6 +100,9 @@ touch src/app/lib/firebase-config.js
 
 ## Create functions
 
+eslint.autoFix is NOT working at the moment.
+(For the ROOT dir, like this file, it works well.)
+
 ```
 mkdir -p functions/src/apis
 export GOOGLE_APPLICATION_CREDENTIALS=path/to/react-firebase-sample-1225-firebase-adminsdk-xxxxxxxxxxxxxxxx.json
