@@ -48,6 +48,12 @@ export {
   TextareaAutosize,
   Toolbar,
   Tooltip,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
   Typography,
   makeStyles,
 } from '@material-ui/core';
