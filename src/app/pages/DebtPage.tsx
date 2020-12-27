@@ -16,7 +16,7 @@ import React, { useEffect, useState } from 'react';
 
 export const DebtPage: React.FunctionComponent = () => {
   const [debt, setDebt] = useState(19200000);
-  const [income, setIncome] = useState(69300);
+  const [rent, setRent] = useState(69300 / 0.9);
   const [fee, setFee] = useState(14858);
   const [repayment, setRepayment] = useState(0);
   const [interest, setInterest] = useState(1.9);
@@ -58,6 +58,10 @@ export const DebtPage: React.FunctionComponent = () => {
     }
   };
 
+  const income = Decimal.mul(
+    rent,
+    Decimal.sub(1, Decimal.div(guaranteeFeeRate, 100)),
+  );
   return (
     <Box padding={2}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -104,13 +108,13 @@ export const DebtPage: React.FunctionComponent = () => {
           <Grid item container spacing={2} alignItems="center">
             <Grid item>
               <TextField
-                id="income"
-                label="Income"
+                id="rent"
+                label="Rent"
                 variant="outlined"
-                value={income}
+                value={rent}
                 onChange={(event) => {
                   !isNaN(Number(event.target.value)) &&
-                    setIncome(Number(event.target.value));
+                    setRent(Number(event.target.value));
                 }}
               />
             </Grid>
@@ -138,21 +142,42 @@ export const DebtPage: React.FunctionComponent = () => {
                 }}
               />
             </Grid>
+          </Grid>
+
+          <Grid item container spacing={2} alignItems="center">
+            <Grid item>
+              <TextField
+                disabled
+                id="income"
+                label="Income"
+                variant="outlined"
+                value={income}
+              />
+            </Grid>
             <Grid item>
               <TextField
                 disabled
                 id="balanceOfPayments"
                 label="Balance Of Payment"
                 variant="outlined"
-                value={new Decimal(income)
-                  .minus(repayment)
-                  .minus(fee)
-                  .toFixed()}
+                value={income.minus(repayment).minus(fee).toFixed()}
               />
             </Grid>
           </Grid>
 
           <Grid item container spacing={2}>
+            <Grid item>
+              <TextField
+                id="guaranteeFeeRate"
+                label="Rate of Guarantee fee"
+                variant="outlined"
+                value={guaranteeFeeRate}
+                onChange={(event) => {
+                  !isNaN(Number(event.target.value)) &&
+                    setGuaranteeFeeRate(Number(event.target.value));
+                }}
+              />
+            </Grid>
             <Grid item>
               <TextField
                 id="targetYield"
@@ -163,18 +188,6 @@ export const DebtPage: React.FunctionComponent = () => {
                   console.log(Number(event.target.value));
                   !isNaN(Number(event.target.value)) &&
                     setInvestmentYield(Number(event.target.value));
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                id="guaranteeFeeRate"
-                label="Rate of Guarantee fee"
-                variant="outlined"
-                value={guaranteeFeeRate}
-                onChange={(event) => {
-                  !isNaN(Number(event.target.value)) &&
-                    setGuaranteeFeeRate(Number(event.target.value));
                 }}
               />
             </Grid>
@@ -205,13 +218,12 @@ export const DebtPage: React.FunctionComponent = () => {
                       </TableCell>
                       <TableCell align="right">{v}</TableCell>
                       <TableCell align="right">
-                        {new Decimal(income).mul(12).div(v).mul(100).toFixed(2)}
+                        {income.mul(12).div(v).mul(100).toFixed(2)}
                       </TableCell>
                       <TableCell align="right">
-                        {new Decimal(investmentYield)
-                          .mul(v)
+                        {Decimal.mul(investmentYield, v)
                           .div(12 * 100)
-                          .div(new Decimal(100).minus(guaranteeFeeRate))
+                          .div(Decimal.sub(100, guaranteeFeeRate))
                           .mul(100)
                           .toFixed(0)}
                       </TableCell>
