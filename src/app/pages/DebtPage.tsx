@@ -15,14 +15,14 @@ import Decimal from 'decimal.js';
 import React, { useEffect, useState } from 'react';
 
 export const DebtPage: React.FunctionComponent = () => {
-  const [debt, setDebt] = useState<string>('19200000');
-  const [income, setIncome] = useState<string>('69300');
-  const [fee, setFee] = useState<string>('14858');
-  const [repayment, setRepayment] = useState<string>('0');
-  const [interest, setInterest] = useState<string>('1.9');
-  const [period, setPeriod] = useState<string>('35');
-  const [investmentYield, setInvestmentYield] = useState<string>('5');
-  const [guaranteeFeeRate, setGuaranteeFeeRate] = useState<string>('10');
+  const [debt, setDebt] = useState(19200000);
+  const [income, setIncome] = useState(69300);
+  const [fee, setFee] = useState(14858);
+  const [repayment, setRepayment] = useState(0);
+  const [interest, setInterest] = useState(1.9);
+  const [period, setPeriod] = useState(35);
+  const [investmentYield, setInvestmentYield] = useState(5);
+  const [guaranteeFeeRate, setGuaranteeFeeRate] = useState(10);
   const [debts, setDebts] = useState<string[]>([]);
 
   useEffect(() => {
