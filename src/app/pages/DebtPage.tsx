@@ -10,28 +10,44 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Typography,
 } from '@core/components';
 import Decimal from 'decimal.js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const DebtPage: React.FunctionComponent = () => {
-  const [residualDept, setResidualDept] = useState<string>('19200000');
+  const [debt, setDebt] = useState<string>('19200000');
   const [income, setIncome] = useState<string>('69300');
-  const [repayment, setRepayment] = useState<string>('61328');
   const [fee, setFee] = useState<string>('14858');
+  const [repayment, setRepayment] = useState<string>('0');
   const [interest, setInterest] = useState<string>('1.9');
   const [period, setPeriod] = useState<string>('35');
   const [investmentYield, setInvestmentYield] = useState<string>('5');
   const [guaranteeFeeRate, setGuaranteeFeeRate] = useState<string>('10');
   const [debts, setDebts] = useState<string[]>([]);
 
+  useEffect(() => {
+    const _f = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:5001/react-firebase-sample-1225/asia-northeast1/calculateRepaymentPerMonth?debt=${Number(
+            debt,
+          )}&interest=${Number(interest)}&period=${Number(period)}`,
+        );
+        setRepayment((await res.json())?.amount);
+        console.log((await res.json())?.amount);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    _f();
+  }, [debt, interest, period]);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const res = await fetch(
         `http://localhost:5001/react-firebase-sample-1225/asia-northeast1/calculateResidualDebt?debt=${Number(
-          residualDept,
+          debt,
         )}&repayment=${new Decimal(repayment)
           .mul(12)
           .toFixed(0)}&interest=${Number(interest)}&period=${Number(period)}`,
@@ -46,86 +62,16 @@ export const DebtPage: React.FunctionComponent = () => {
     <Box padding={2}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={2} direction="column">
-          <Grid item>
-            <TextField
-              id="residualDept"
-              label="ResidualDept"
-              variant="outlined"
-              value={residualDept}
-              onChange={(
-                event: React.ChangeEvent<
-                  HTMLTextAreaElement | HTMLInputElement
-                >,
-              ) => {
-                setResidualDept(event.target.value);
-              }}
-            />
-          </Grid>
-          <Grid item container spacing={2} alignItems="center">
-            <Grid item>
-              <TextField
-                id="income"
-                label="Income"
-                variant="outlined"
-                value={income}
-                onChange={(
-                  event: React.ChangeEvent<
-                    HTMLTextAreaElement | HTMLInputElement
-                  >,
-                ) => {
-                  setIncome(event.target.value);
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                id="repayment"
-                label="Repayment"
-                variant="outlined"
-                value={repayment}
-                onChange={(
-                  event: React.ChangeEvent<
-                    HTMLTextAreaElement | HTMLInputElement
-                  >,
-                ) => {
-                  setRepayment(event.target.value);
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                id="fee"
-                label="Fee"
-                variant="outlined"
-                value={fee}
-                onChange={(
-                  event: React.ChangeEvent<
-                    HTMLTextAreaElement | HTMLInputElement
-                  >,
-                ) => {
-                  setFee(event.target.value);
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <Typography>
-                {new Decimal(income).minus(repayment).minus(fee).toFixed()}
-              </Typography>
-            </Grid>
-          </Grid>
           <Grid item container spacing={2}>
             <Grid item>
               <TextField
-                id="period"
-                label="Repayment Period"
+                id="debt"
+                label="Debt"
                 variant="outlined"
-                value={period}
-                onChange={(
-                  event: React.ChangeEvent<
-                    HTMLTextAreaElement | HTMLInputElement
-                  >,
-                ) => {
-                  setPeriod(event.target.value);
+                value={debt}
+                onChange={(event) => {
+                  !isNaN(Number(event.target.value)) &&
+                    setDebt(Number(event.target.value));
                 }}
               />
             </Grid>
@@ -135,44 +81,100 @@ export const DebtPage: React.FunctionComponent = () => {
                 label="Interest"
                 variant="outlined"
                 value={interest}
-                onChange={(
-                  event: React.ChangeEvent<
-                    HTMLTextAreaElement | HTMLInputElement
-                  >,
-                ) => {
-                  setInterest(event.target.value);
+                onChange={(event) => {
+                  !isNaN(Number(event.target.value)) &&
+                    setInterest(Number(event.target.value));
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                id="period"
+                label="Repayment Period"
+                variant="outlined"
+                value={period}
+                onChange={(event) => {
+                  !isNaN(Number(event.target.value)) &&
+                    setPeriod(Number(event.target.value));
                 }}
               />
             </Grid>
           </Grid>
-          <Grid item container spacing={2}>
+
+          <Grid item container spacing={2} alignItems="center">
             <Grid item>
               <TextField
-                id="target-yield"
-                label="Target Yield"
+                id="income"
+                label="Income"
                 variant="outlined"
-                value={investmentYield}
-                onChange={(
-                  event: React.ChangeEvent<
-                    HTMLTextAreaElement | HTMLInputElement
-                  >,
-                ) => {
-                  setInvestmentYield(event.target.value);
+                value={income}
+                onChange={(event) => {
+                  !isNaN(Number(event.target.value)) &&
+                    setIncome(Number(event.target.value));
                 }}
               />
             </Grid>
             <Grid item>
               <TextField
-                id="guarantee-fee-rate"
-                label="Guarantee Fee Rate"
+                id="fee"
+                label="Fee"
+                variant="outlined"
+                value={fee}
+                onChange={(event) => {
+                  !isNaN(Number(event.target.value)) &&
+                    setFee(Number(event.target.value));
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                id="repayment"
+                label="Repayment"
+                variant="outlined"
+                value={repayment}
+                onChange={(event) => {
+                  !isNaN(Number(event.target.value)) &&
+                    setRepayment(Number(event.target.value));
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                disabled
+                id="balanceOfPayments"
+                label="Balance Of Payment"
+                variant="outlined"
+                value={new Decimal(income)
+                  .minus(repayment)
+                  .minus(fee)
+                  .toFixed()}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid item container spacing={2}>
+            <Grid item>
+              <TextField
+                id="targetYield"
+                label="Target Yield"
+                variant="outlined"
+                value={investmentYield}
+                onChange={(event) => {
+                  console.log(Number(event.target.value));
+                  !isNaN(Number(event.target.value)) &&
+                    setInvestmentYield(Number(event.target.value));
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                id="guaranteeFeeRate"
+                label="Rate of Guarantee fee"
                 variant="outlined"
                 value={guaranteeFeeRate}
-                onChange={(
-                  event: React.ChangeEvent<
-                    HTMLTextAreaElement | HTMLInputElement
-                  >,
-                ) => {
-                  setGuaranteeFeeRate(event.target.value);
+                onChange={(event) => {
+                  !isNaN(Number(event.target.value)) &&
+                    setGuaranteeFeeRate(Number(event.target.value));
                 }}
               />
             </Grid>
